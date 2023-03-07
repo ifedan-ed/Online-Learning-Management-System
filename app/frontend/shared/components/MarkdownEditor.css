@@ -1,0 +1,20 @@
+.markdown-editor__footer-container {
+  border-style: dashed solid solid solid;
+}
+
+.markdown-editor__windowed-preview-container {
+  min-height: 10.125rem;
+}
+
+.markdown-editor__fullscreen-preview-wrapper
+  > .markdown-editor__fullscreen-preview-editor {
+  @apply max-w-3xl mx-auto;
+}
+
+.markdown-editor__textarea {
+  max-height: 12rem;
+}
+
+.markdown-editor__textarea--full-screen {
+  max-height: 100% !important;
+}

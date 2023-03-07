@@ -1,0 +1,21 @@
+CommitMsg:
+  TextWidth:
+    enabled: false
+
+PreCommit:
+  CaseConflicts:
+    enabled: false
+  RuboCop:
+    enabled: true
+    on_warn: fail
+
+  TrailingWhitespace:
+    enabled: true
+    exclude:
+      - "**/*.svg"
+      - "app/frontend/**/*.bs.js"
+
+  Stylelint:
+    enabled: true
+    command: ["yarn", "run", "--silent", "stylelint"]
+    required_executable: "./node_modules/stylelint/bin/stylelint.js"

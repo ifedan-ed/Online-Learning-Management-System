@@ -1,0 +1,78 @@
+module Users
+  class DeleteAccountService
+    def initialize(user)
+      @user = user
+    end
+
+    def execute
+      raise 'user is a school admin' if @user.school_admin.present?
+
+      if @user.discord_user_id.present?
+        Discord::ClearRolesService.new(
+          @user.discord_user_id,
+          Schools::Configuration::Discord.new(@user.school)
+        ).execute
+      end
+
+      User.transaction do
+        delete_founder_data if @user.founders.present?
+        delete_coach_profile if @user.faculty.present?
+        delete_course_authors if @user.course_authors.present?
+        name = @user.preferred_name.presence || @user.name
+        UserMailer.confirm_account_deletion(name, @user.email, @user.school)
+          .deliver_later
+
+        create_audit_record
+
+        @user.reload.destroy!
+      end
+    end
+
+    private
+
+    def delete_founder_data
+      # Clear links with all submissions, and delete submissions owned just by this user.
+      TimelineEventOwner
+        .includes(:timeline_event)
+        .where(founder: @user.founders)
+        .find_each do |submission_ownership|
+          submission = submission_ownership.timeline_event
+          only_one_owner = submission.timeline_event_owners.one?
+          submission_ownership.destroy!
+          submission.destroy! if only_one_owner
+        end
+
+      # Cache teams with only the current user as member
+      team_ids =
+        Team
+          .joins(:founders)
+          .group(:id)
+          .having('count(founders.id) = 1')
+          .where(id: @user.founders.distinct(:team_id).select(:team_id))
+          .pluck(:id)
+
+      @user.founders.each(&:destroy!)
+      Team.where(id: team_ids).each(&:destroy!)
+    end
+
+    def delete_coach_profile
+      @user.faculty.destroy!
+    end
+
+    def delete_course_authors
+      @user.course_authors.each(&:destroy!)
+    end
+
+    def create_audit_record
+      AuditRecord.create!(
+        audit_type: AuditRecord::TYPE_DELETE_ACCOUNT,
+        school_id: @user.school_id,
+        metadata: {
+          email: @user.email,
+          account_deletion_notification_sent_at:
+            @user.account_deletion_notification_sent_at&.iso8601
+        }
+      )
+    end
+  end
+end

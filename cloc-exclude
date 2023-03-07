@@ -1,0 +1,5 @@
+bin
+db/migrate
+public
+example.env
+log

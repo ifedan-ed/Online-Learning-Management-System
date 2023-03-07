@@ -1,0 +1,11 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "themes/pupilfirst";
+
+/* Custom utilities */
+@layer utilities {
+  .max-w-fc {
+    max-width: fit-content;
+  }
+}

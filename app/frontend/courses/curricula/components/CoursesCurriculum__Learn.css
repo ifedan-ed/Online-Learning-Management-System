@@ -1,0 +1,8 @@
+@media print {
+  .course-curriculum__learn-edit-content-btn {
+    display: none;
+  }
+  .course-overlay__close {
+    display: none;
+  }
+}

@@ -1,0 +1,6 @@
+tailwind.config.js
+db/schema.rb
+config/routes.rb
+config/initializers/content_security_policy.rb
+config/locales/*.yml
+*.erb

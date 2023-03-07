@@ -1,0 +1,24 @@
+.user-dashboard-community__cover {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.user-dashboard-course__cover {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.user-dashboard-course__title-container {
+  background: rgba(0, 0, 0, 0.3);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+}
+
+.user-dashboard-course__title {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.user-dashboard-course__description {
+  min-height: 4.5rem;
+}
