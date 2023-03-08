@@ -18,9 +18,10 @@ true learning cannot happen by just consuming information; it happens when:
 - Reflect on their work and make improvements.
 - And finally, get involved in the learning process by answering questions from their peers.
 
-## Documentation
+## Docker
 
-Visit [docs.pupilfirst.com](https://docs.pupilfirst.com) for a detailed explanation of Pupilfirst's features, and to learn how to set up this repository for development and deployment.
+You can use this particular image by running docker pull ifedaned/lms
+Visit [docs.pupilfirst.com](https://docs.pupilfirst.com) for a detailed explanation of Pupilfirst's features.
 
 ## Community
 
@@ -28,7 +29,4 @@ Visit [docs.pupilfirst.com](https://docs.pupilfirst.com) for a detailed explanat
 
 Join [our Discord server](https://discord.gg/Sh67Tca) to talk to our team!
 
-## Changelog
 
-Visit [pupilfirst.com/changelog](https://www.pupilfirst.com/changelog) to view the full changelog.
-# Online-Learning-Management-System
